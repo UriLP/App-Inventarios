@@ -2,7 +2,7 @@ import { Platform } from "react-native"
 
 const theme = {
   appBar: {
-    primary: '#24292e',
+    primary: '#0366d6',
     textSecondary: '#999',
     textPrimary: '#fff'
   },
