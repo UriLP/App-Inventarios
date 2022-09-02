@@ -11,11 +11,7 @@ const Main = () => {
     <View style={{ flex: 1 }}>
       <AppBar />
 
-      {/* <Routes path='/' exact>
-        <Route exact path='/' element={<Home />} />
-        <Route path='/signin' element={<Login />} />
-        <Route path='*' element={<Navigate replace to='/' />} />
-      </Routes> */}
+      <Home />
         
     </View>
   )

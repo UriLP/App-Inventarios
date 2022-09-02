@@ -9,45 +9,27 @@ const styles = StyleSheet.create ({
   container: {
     backgroundColor: theme.appBar.primary,
     // paddingTop: Constants.statusBarHeigh + 10,
-    paddingTop: 30,
+    paddingTop: 15,
     flexDirection: 'row'
   },
-  scroll: {
-    paddingBottom: 15
-  },
   text: {
-    color: theme.appBar.textSecondary,
-    paddingHorizontal: 10
-  },
-  active: {
     color: theme.appBar.textPrimary,
+    // paddingHorizontal: 10,
+    fontSize: 20,
+    fontWeight: 'bold',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: "auto",
+    paddingVertical: 10
   }
 })
 
-// const AppBarTab = ({ children, to}) => {
-//   const { pathname } = useLocation()
-//   const active = pathname === to
-
-//   const textStyles = [
-//     styles.text,
-//     active && styles.active
-//   ]
-//   return (
-//     <Link to={ to } component={ TouchableWithoutFeedback } >
-//       <StyledText fontWeight='bold' style={textStyles}>
-//         { children } 
-//       </StyledText>
-//     </Link>
-//   )
-// }
 
 const AppBar = () => {
   return (
     <View style={ styles.container }>
-      <ScrollView horizontal style={ styles.scroll }>
-        <Text to='/'>Home</Text>
-        <Text to='/signin'>Sign In</Text>
-      </ScrollView>
+      <Text style={ styles.text }>Bienvenido</Text>
     </View>
   )
 }

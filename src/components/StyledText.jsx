@@ -10,7 +10,7 @@ const styles = StyleSheet.create ({
         fontWeight: theme.fontWeights.normal
     },
     colorPrimary: {
-        color: theme.colors.primary,
+        color: theme.colors.white,
     },
     colorSecondary: {
         color: theme.colors.textSecondary,
@@ -30,7 +30,7 @@ export default function StyledText ({ children, align, color, fontSize, fontWeig
     const textStyles = [
         styles.text,
         align === 'center' && styles.textAlignCenter,
-        color === 'primary' && styles.colorPrimary,
+        color === 'white' && styles.colorPrimary,
         color === 'secondary' && styles.colorSecondary,
         fontSize === 'subheading' && styles.subheading,
         fontWeight === 'bold' && styles.bold,
