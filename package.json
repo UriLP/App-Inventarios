@@ -19,7 +19,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
-    "@expo/webpack-config": "^0.17.2"
+    "@expo/webpack-config": "^0.17.2",
+    "@klarr-agency/circum-icons-react": "^1.0.5"
   },
   "private": true
 }
