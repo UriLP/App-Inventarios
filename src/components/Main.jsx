@@ -12,6 +12,7 @@ const Main = () => {
       <AppBar />
 
       <Home />
+      
         
     </View>
   )

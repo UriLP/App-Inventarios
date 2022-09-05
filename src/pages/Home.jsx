@@ -1,28 +1,36 @@
 import { StyleSheet, Text, View } from "react-native"
 import ButtonMenu from "../components/ButtonMenu"
-import CircumIcon from "@klarr-agency/circum-icons-react";
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 
 const Home = () => {
   return (
     <View style={ styles.container }>
+      
+        
       <ButtonMenu>
         <Text style={ styles.icon }>
-          <CircumIcon color='white' size='50' name="box_list"/>
+          <FontAwesomeIcon color="white" icon="fa-boxes-stacked" />
         </Text>
         <Text style={ styles.text }>Fisico</Text>
       </ButtonMenu>
+    
+    
       <ButtonMenu>
         <Text style={ styles.icon }>
-          <CircumIcon color='white' size='50' name="laptop"/>
+          <FontAwesomeIcon color="white" icon="fa-computer" />
         </Text>
         <Text style={ styles.text }>Sistema</Text>
       </ButtonMenu>
+    
+    
       <ButtonMenu>
         <Text style={ styles.icon }>
-        <CircumIcon color='#fff' size='50' name="calendar"/>
+          <FontAwesomeIcon color="white" icon="fa-calendar-days" />
         </Text>
         <Text style={ styles.text }>Caducidades</Text>
       </ButtonMenu>
+    
+      
     </View>
   )
 }
@@ -37,9 +45,11 @@ const styles = StyleSheet.create({
     // flexDirection: 'row',
     marginHorizontal: 30,
     marginVertical: 30,
-    display: "grid",
+    display: "flex",
+    borderRadius: 5,
     justifyContent: "center",
-    borderRadius: '5%'
+    alignContent: "center",
+    alignItems: "center"
   },
   icon: {
     marginVertical: 5,

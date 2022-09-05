@@ -18,10 +18,12 @@ const styles = StyleSheet.create ({
     fontSize: 20,
     fontWeight: 'bold',
     display: "flex",
+    marginTop: 30,
+    marginBottom: 10,
     justifyContent: "center",
     alignItems: "center",
-    marginHorizontal: "auto",
-    paddingVertical: 10
+    alignContent: "center",
+    marginLeft: 30
   }
 })
 
