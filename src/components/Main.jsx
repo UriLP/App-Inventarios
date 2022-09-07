@@ -6,14 +6,13 @@ import AppBar from "./AppBar"
 import { Navigate, Route, Routes } from 'react-router-native'
 import Navigation from './Navigation'
 import { StatusBar } from 'expo-status-bar'
+import theme from '../theme'
 
 
 const Main = () => {
   return (
-    <View style={{ flex: 1 }}>
-      {/* <AppBar /> */}
-
-      {/* <Home /> */}
+    <View style={{ flex: 1, backgroundColor: 'red' }}>
+      
       <StatusBar style='light' />
       
       <Navigation />
