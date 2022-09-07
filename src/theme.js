@@ -7,10 +7,10 @@ const theme = {
     textPrimary: '#fff'
   },
   colors: {
-    textPrimary: '#24292e',
-    textSecondary: '#586069',
-    primary: '#0366d6',
-    white: '#fefefe'
+    bgPrimary: '#212121',
+    bgSecondary: '#0D7377',
+    active: '#32E0C4',
+    textColor: '#EEEEEE'
   },
   fontSizes: {
     body: 14,

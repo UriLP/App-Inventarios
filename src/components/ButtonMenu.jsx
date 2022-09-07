@@ -1,34 +1,49 @@
 import React from "react"
 import { StyleSheet, Text, View } from "react-native"
 import StyledText from "./StyledText"
-import CircumIcon from "@klarr-agency/circum-icons-react";
+import { TouchableOpacity } from "react-native-gesture-handler"
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from "@react-navigation/native";
+import theme from "../theme";
 
 const ButtonMenu = ({ children }) => {
+  
+  const navigation = useNavigation()
+  let iconName
 
-  // const icon = iconos.box ? { children } == 'Sistema' : iconos.laptop
+  if (children.props.children === 'Físico') {
+    iconName = 'cube-outline'
+  } else if (children.props.children === 'Sistema') {
+    iconName = 'laptop-outline'
+  } else if (children.props.children === 'Caducidades') {
+    iconName = 'calendar-sharp'
+  } else {
+    iconName = 'help-circle-outline'
+  }
+
+  let color = theme.colors.textColor
 
   return (
     <View style={ styles.botonMenu }>
-      <StyledText style={ styles.card } color='white'>
-        {/* <CircumIcon style={ styles.icon }  color='white' name={ iconos.box }/> */}
-        
+      <StyledText style={ styles.card } color='white'>        
+        <TouchableOpacity
+          onPress={ () => navigation.navigate( children.props.children ) }
+          style={ styles.opacityEffect }
+          >  
+          <Ionicons name={ iconName } size={ 60 } color={ color } />
+
+        </TouchableOpacity>
         { children }
-      </StyledText>
+      </StyledText>  
     </View>
   )
 }
 
 export default ButtonMenu
 
-
-const iconos = {
-  laptop: 'laptop',
-  box: 'box_list'
-}
-
 const styles = StyleSheet.create({
   botonMenu: {
-    backgroundColor: 'gray',
+    backgroundColor: theme.colors.bgSecondary,
     marginHorizontal: 30,
     marginTop: 20,
     height: 150,
@@ -49,5 +64,13 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: "center",
     alignItems: "center"
+  },
+  opacityEffect: {
+    display: "flex",
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    margin: "auto",
   }
 })

@@ -10,23 +10,37 @@ import InventarioFisico from "../pages/InventarioFisicoPage";
 import InventarioSistema from "../pages/InventarioSistemaPage";
 import CaducidadesPage from "../pages/CaducidadesPage";
 import SettingsScreen from "../pages/SettingsPage";
+import theme from "../theme";
 
 const HomeStackNavigator = createStackNavigator();
+
+const styles = StyleSheet.create ({
+  title: {
+    color: theme.colors.textColor,
+    fontSize: 20
+  }
+})
+
+let optionsHeader = {
+  headerTitle: "Bienvenido",
+  headerTitleAlign: "center",
+  headerTitleStyle: styles.title,
+  headerStyle: { backgroundColor: theme.colors.bgPrimary }
+}
 
 function MyStack () {
   return (
     <HomeStackNavigator.Navigator
       initialRouteName="HomePage"
+      screenOptions={{
+        headerMode: 'screen',
+        cardStyle: { backgroundColor: theme.colors.bgPrimary }
+      }}
     >
       <HomeStackNavigator.Screen 
         name="HomePage"
         component={ Home }
-        options={{
-          headerTitle: "Bienvenido",
-          headerTitleAlign: "center",
-          headerTitleStyle: styles.title,
-          headerStyle: { backgroundColor: "#0366d6"}
-        }}
+        options= {optionsHeader}
       />
       <HomeStackNavigator.Screen 
         name="Fisico"
@@ -91,8 +105,10 @@ function MyTabs () {
 
           return <Ionicons name={ iconName } size={ size } color={ color } />
         },
-        tabBarActiveTintColor: '#0366d6',
-        tabBarInactiveTintColor: '#586069',
+        tabBarActiveTintColor: theme.colors.active,
+        tabBarInactiveTintColor: theme.colors.active,
+        tabBarShowLabel: false,
+        tabBarStyle: {backgroundColor: theme.colors.bgPrimary}
       })}
     >
       <Tab.Screen 
@@ -100,26 +116,21 @@ function MyTabs () {
         component={ MyStack } 
         options={{
           tabBarBadge: 3,
-          headerShown: false
+          headerShown: false,
         }}
       />
       <Tab.Screen 
         name="Settings" 
         component={ SettingsScreen } 
         options={{
-          headerShown: false
+          headerShown: false,
         }}
       />
     </Tab.Navigator>
   )
 }
 
-const styles = StyleSheet.create ({
-  title: {
-    color: "#fff",
-    fontSize: 20
-  }
-})
+
 
 export default function Navigation () {
   return (
