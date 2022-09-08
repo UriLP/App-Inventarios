@@ -10,6 +10,7 @@ import InventarioFisico from "../pages/InventarioFisicoPage";
 import InventarioSistema from "../pages/InventarioSistemaPage";
 import CaducidadesPage from "../pages/CaducidadesPage";
 import SettingsScreen from "../pages/SettingsPage";
+import NuevoProductoPage from "../pages/NuevoProductoPage";
 import theme from "../theme";
 
 const HomeStackNavigator = createStackNavigator();
@@ -22,13 +23,14 @@ const styles = StyleSheet.create ({
 })
 
 let optionsHeader = {
-  headerTitle: "Bienvenido",
+  headerTitle: 'Hola',
   headerTitleAlign: "center",
   headerTitleStyle: styles.title,
   headerStyle: { backgroundColor: theme.colors.bgPrimary }
 }
 
 function MyStack () {
+  
   return (
     <HomeStackNavigator.Navigator
       initialRouteName="HomePage"
@@ -38,20 +40,21 @@ function MyStack () {
       }}
     >
       <HomeStackNavigator.Screen 
-        name="HomePage"
+        name={ "HomePage" }
         component={ Home }
-        options= {optionsHeader}
+        options= { optionsHeader }
       />
       <HomeStackNavigator.Screen 
-        name="Fisico"
+        name="Físico"
         component={ InventarioFisico }
         options={{
           headerBackTitleVisible: false,
-          headerTitle: "Inventario Físico",
+          // headerTitle: "Inventario Físico",
           headerTitleAlign: "center",
           headerTitleStyle: styles.title,
-          headerStyle: { backgroundColor: "#0366d6"},
+          headerStyle: { backgroundColor: theme.colors.bgPrimary },
           headerTintColor: "#fff",
+          
         }}
       />
       <HomeStackNavigator.Screen 
@@ -62,7 +65,7 @@ function MyStack () {
           headerTitle: "Inventario en Sistema",
           headerTitleAlign: "center",
           headerTitleStyle: styles.title,
-          headerStyle: { backgroundColor: "#0366d6"},
+          headerStyle: { backgroundColor: theme.colors.bgPrimary },
           headerTintColor: "#fff"
         }}
       />
@@ -75,6 +78,18 @@ function MyStack () {
           headerTitleAlign: "center",
           headerTitleStyle: styles.title,
           headerStyle: { backgroundColor: "#0366d6"},
+          headerTintColor: "#fff"
+        }}
+      />
+      <HomeStackNavigator.Screen 
+        name="NuevoProducto"
+        component={ NuevoProductoPage }
+        options={{
+          headerBackTitleVisible: false,
+          headerTitle: "Nuevo Producto",
+          headerTitleAlign: "center",
+          headerTitleStyle: styles.title,
+          headerStyle: { backgroundColor: theme.colors.bgPrimary},
           headerTintColor: "#fff"
         }}
       />
