@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createStackNavigator } from "@react-navigation/stack"
-import { StyleSheet } from "react-native";
+import { ImageBackground, StyleSheet } from "react-native";
 
 //screens
 import Home from "../pages/HomePage";
@@ -29,9 +29,12 @@ let optionsHeader = {
   headerStyle: { backgroundColor: theme.colors.bgPrimary }
 }
 
+const uri = 'https://images.pexels.com/photos/1391293/pexels-photo-1391293.jpeg?auto=compress&cs=tinysrgb&w=600'
+
 function MyStack () {
   
   return (
+    
     <HomeStackNavigator.Navigator
       initialRouteName="HomePage"
       screenOptions={{
