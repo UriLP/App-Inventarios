@@ -34,7 +34,8 @@ export default Home
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.bgPrimary,
+    backgroundColor: 'transparent',
+    // backgroundColor: theme.colors.bgPrimary,
     padding: 10,
     height: '80%',
     // flexDirection: 'row',
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: "center",
     alignContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   icon: {
     marginVertical: 5,

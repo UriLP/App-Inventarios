@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Button } from "react-native";
 import Input from "../components/TextInput";
 import theme from "../theme";
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -47,6 +47,16 @@ const NuevoProductoPage = () => {
         </Input>
       </View>
 
+      <View style={ styles.containerButton }>
+        <View style={ styles.buttonCancelar }>
+          <Text style={ styles.nombreButton }>Cancelar</Text>
+        </View>
+        <View style={ styles.buttonGuardar }>
+          <Text style={ styles.nombreButton }>Guardar</Text>
+        </View>
+      </View>
+      
+
     
     </View>
   )
@@ -86,6 +96,40 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: theme.colors.textColor,
     marginLeft: 15
+  },
+  buttonCancelar: {
+    borderColor: theme.colors.active,
+    width: 120,
+    height: 30,
+    // backgroundColor: theme.colors.bgSecondary,
+    borderWidth: 1,
+    borderRadius: 5,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginHorizontal: 15
+  },
+  buttonGuardar: {
+    borderColor: theme.colors.active,
+    width: 120,
+    height: 30,
+    backgroundColor: theme.colors.bgSecondary,
+    borderWidth: 1,
+    borderRadius: 5,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginHorizontal: 15
+  },
+  nombreButton: {
+    color: theme.colors.textColor,
+  },
+  containerButton: {
+    display: "flex",
+    justifyContent: "center",
+    alignContent: "center",
+    flexDirection: "row",
+    marginVertical: 20
   }
   
 })
