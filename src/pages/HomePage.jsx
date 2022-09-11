@@ -6,7 +6,17 @@ import { useNavigation } from "@react-navigation/native";
 import Icon from "../components/Icon";
 import theme from "../theme";
 
+//Firebase Conexion
+import { getAllMedicinas } from "../firebase/api";
+
 const Home = () => {
+
+  const cargarMedicinas = async() => {
+    const respuesta = await getAllMedicinas();
+    console.table(respuesta);
+  }
+
+  cargarMedicinas();
 
   const navigation = useNavigation()
 
