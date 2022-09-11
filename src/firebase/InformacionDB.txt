@@ -1,0 +1,26 @@
+Se realizó un modelo "provisional" entidad relación (creo jaja) de los campos de la base de datos.
+El "Producto" será la tabla principal, se deberá registrar la mayor cantidad de datos tomando en cuenta las "Categorías" como:
+
+- Bebidas
+- Botanas
+- Medicamento
+- Perfumería
+- Material de Curación
+- Otros
+
+También hay que tener en cuenta que cada categoría tiene una "Familia" como: 
+
+- Ciel
+- Electrolit
+- Coca Cola
+- Medicamento Patente
+- Medicamento Genérico
+- Medicamento Comercial
+- Otros
+
+La "Familia" es la marca del producto por así decirlo.
+Las "Primary Key" siempre serán los "Id".
+El "Inventario Realizado" dará como resultado un pdf con toda la información posible
+En el apartado "Próximos a caducar" se podrá crear una "notificación/alarma" programada días antes de la caducidad.
+
+Por ahora estos son algunos usos de la base de datos. Serán deslumbrados más adelante. Gracias.
