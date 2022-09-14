@@ -9,7 +9,7 @@ import Home from "../pages/HomePage";
 import InventarioFisico from "../pages/InventarioFisicoPage";
 import InventarioSistema from "../pages/InventarioSistemaPage";
 import CaducidadesPage from "../pages/CaducidadesPage";
-import SettingsScreen from "../pages/SettingsPage";
+import SettingsPage from "../pages/SettingsPage";
 import NuevoProductoPage from "../pages/NuevoProductoPage";
 import theme from "../theme";
 
@@ -56,7 +56,7 @@ function MyStack () {
           headerTitleAlign: "center",
           headerTitleStyle: styles.title,
           headerStyle: { backgroundColor: theme.colors.bgPrimary },
-          headerTintColor: "#fff",
+          headerTintColor: theme.colors.textColor,
           
         }}
       />
@@ -69,7 +69,7 @@ function MyStack () {
           headerTitleAlign: "center",
           headerTitleStyle: styles.title,
           headerStyle: { backgroundColor: theme.colors.bgPrimary },
-          headerTintColor: "#fff"
+          headerTintColor: theme.colors.textColor
         }}
       />
       <HomeStackNavigator.Screen 
@@ -80,8 +80,8 @@ function MyStack () {
           headerTitle: "Próximos a Caducar",
           headerTitleAlign: "center",
           headerTitleStyle: styles.title,
-          headerStyle: { backgroundColor: "#0366d6"},
-          headerTintColor: "#fff"
+          headerStyle: { backgroundColor: theme.colors.bgPrimary },
+          headerTintColor: theme.colors.textColor
         }}
       />
       <HomeStackNavigator.Screen 
@@ -93,7 +93,19 @@ function MyStack () {
           headerTitleAlign: "center",
           headerTitleStyle: styles.title,
           headerStyle: { backgroundColor: theme.colors.bgPrimary},
-          headerTintColor: "#fff"
+          headerTintColor: theme.colors.textColor
+        }}
+      />
+      <HomeStackNavigator.Screen 
+        name="Settings"
+        component={ SettingsPage }
+        options={{
+          headerBackTitleVisible: false,
+          headerTitle: "Configuracion",
+          headerTitleAlign: "center",
+          headerTitleStyle: styles.title,
+          headerStyle: { backgroundColor: theme.colors.bgPrimary},
+          headerTintColor: theme.colors.textColor
         }}
       />
     </HomeStackNavigator.Navigator>
@@ -139,9 +151,11 @@ function MyTabs () {
       />
       <Tab.Screen 
         name="Settings" 
-        component={ SettingsScreen } 
+        component={ SettingsPage } 
         options={{
           headerShown: false,
+          // headerBackground: theme.colors.bgSecondary
+
         }}
       />
     </Tab.Navigator>
