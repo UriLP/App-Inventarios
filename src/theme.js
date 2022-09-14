@@ -13,8 +13,10 @@ const theme = {
     textColor: '#EEEEEE'
   },
   fontSizes: {
-    body: 14,
-    subheading: 16
+    headerSize: 24,
+    subHeadingSize: 20,
+    bodySize: 18,
+    formSize: 16,
   },
   fonts: {
     main: Platform.select({

@@ -11,9 +11,9 @@ const ButtonMenu = ({ children }) => {
   const navigation = useNavigation()
   let iconName
 
-  if (children.props.children === 'Físico') {
+  if (children.props.children === 'Inventario Físico') {
     iconName = 'cube-outline'
-  } else if (children.props.children === 'Sistema') {
+  } else if (children.props.children === 'Inventario en Sistema') {
     iconName = 'laptop-outline'
   } else if (children.props.children === 'Caducidades') {
     iconName = 'calendar-sharp'

@@ -4,20 +4,20 @@ import theme from "../theme";
 
 const DATA = [
   {
-    title: "Main dishes",
-    data: ["Pizza", "Burger", "Risotto"]
+    title: "Ajustes Generales",
+    data: ["Hora", "Fecha", "Notificaciones"]
   },
   {
-    title: "Sides",
-    data: ["French Fries", "Onion Rings", "Fried Shrimps"]
+    title: "Apariencia",
+    data: ["Modo Claro"]
   },
   {
-    title: "Drinks",
-    data: ["Water", "Coke", "Beer"]
+    title: "Seguridad",
+    data: ["Usuario", "Contraseña", "Borrar Datos"]
   },
   {
-    title: "Desserts",
-    data: ["Cheese Cake", "Ice Cream"]
+    title: "Nosotros",
+    data: ["Contacto", "Calificanos"]
   }
 ];
 
@@ -52,21 +52,24 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingTop: StatusBar.currentHeight,
-    marginHorizontal: 16,
-    backgroundColor: theme.colors.bgPrimary
+    paddingTop: 20,
+    backgroundColor: theme.colors.bgPrimary,
   },
   item: {
-    backgroundColor: "#f9c2ff",
     padding: 20,
-    marginVertical: 8
+    marginVertical: 8,
+    marginHorizontal: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.colors.bgSecondary
   },
   header: {
     fontSize: 32,
-    backgroundColor: "#fff"
+    marginHorizontal: 16,
+    color: theme.colors.active
   },
   title: {
-    fontSize: 24
+    fontSize: 24,
+    color: theme.colors.textColor
   }
 })
 

@@ -4,6 +4,7 @@ import Input from "../components/TextInput";
 import theme from "../theme";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from "@react-navigation/native";
+import ButtonForm from "../components/Button";
 
 const NuevoProductoPage = () => {
 
@@ -47,15 +48,7 @@ const NuevoProductoPage = () => {
         </Input>
       </View>
 
-      <View style={ styles.containerButton }>
-        <View style={ styles.buttonCancelar }>
-          <Text style={ styles.nombreButton }>Cancelar</Text>
-        </View>
-        <View style={ styles.buttonGuardar }>
-          <Text style={ styles.nombreButton }>Guardar</Text>
-        </View>
-      </View>
-      
+      <ButtonForm />      
 
     
     </View>
@@ -76,7 +69,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   titulo: {
-    fontSize: 20,
+    fontSize: theme.fontSizes.subHeadingSize,
     textAlign: "center",
     marginTop: "20%",
     color: theme.colors.textColor
@@ -93,7 +86,7 @@ const styles = StyleSheet.create({
     color: theme.colors.active,
   },
   nombreInput: {
-    fontSize: 16,
+    fontSize: theme.fontSizes.formSize,
     color: theme.colors.textColor,
     marginLeft: 15
   },

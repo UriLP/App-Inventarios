@@ -24,11 +24,11 @@ const Home = () => {
     <View style={ styles.container }>
       
       <ButtonMenu>
-        <Text style={ styles.text }>Físico</Text>
+        <Text style={ styles.text }>Inventario Físico</Text>
       </ButtonMenu>
     
       <ButtonMenu>
-        <Text style={ styles.text }>Sistema</Text>
+        <Text style={ styles.text }>Inventario en Sistema</Text>
       </ButtonMenu>
       
       <ButtonMenu>
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   text: {
-    fontSize: 18,
+    fontSize: theme.fontSizes.bodySize,
     color: theme.colors.textColor
   }
 })
