@@ -16,7 +16,7 @@ const InventarioFisicoPage = () => {
         <Text>Buscar...</Text>
       </Input>
 
-      <TouchableOpacity onPress={ () => navigation.navigate("NuevoProducto") }>
+      <TouchableOpacity onPress={ () => navigation.navigate("Nuevo Producto") }>
 
         <Ionicons name="add-outline" color={ theme.colors.active } size={32} />
       </TouchableOpacity>

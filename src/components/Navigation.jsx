@@ -18,18 +18,17 @@ const HomeStackNavigator = createStackNavigator();
 const styles = StyleSheet.create ({
   title: {
     color: theme.colors.textColor,
-    fontSize: 20
+    fontSize: theme.fontSizes.headerSize
   }
 })
 
 let optionsHeader = {
-  headerTitle: 'Hola',
   headerTitleAlign: "center",
   headerTitleStyle: styles.title,
-  headerStyle: { backgroundColor: theme.colors.bgPrimary }
+  headerStyle: { backgroundColor: theme.colors.bgPrimary },
+  headerBackTitleVisible: false,
+  headerTintColor: theme.colors.textColor,
 }
-
-const uri = 'https://images.pexels.com/photos/1391293/pexels-photo-1391293.jpeg?auto=compress&cs=tinysrgb&w=600'
 
 function MyStack () {
   
@@ -43,77 +42,34 @@ function MyStack () {
       }}
     >
       <HomeStackNavigator.Screen 
-        name={ "HomePage" }
+        name={ "Bienvenido" }
         component={ Home }
         options= { optionsHeader }
       />
       <HomeStackNavigator.Screen 
-        name="Físico"
+        name="Inventario Físico"
         component={ InventarioFisico }
-        options={{
-          headerBackTitleVisible: false,
-          // headerTitle: "Inventario Físico",
-          headerTitleAlign: "center",
-          headerTitleStyle: styles.title,
-          headerStyle: { backgroundColor: theme.colors.bgPrimary },
-          headerTintColor: theme.colors.textColor,
-          
-        }}
+        options={ optionsHeader }
       />
       <HomeStackNavigator.Screen 
-        name="Sistema"
+        name="Inventario en Sistema"
         component={ InventarioSistema }
-        options={{
-          headerBackTitleVisible: false,
-          headerTitle: "Inventario en Sistema",
-          headerTitleAlign: "center",
-          headerTitleStyle: styles.title,
-          headerStyle: { backgroundColor: theme.colors.bgPrimary },
-          headerTintColor: theme.colors.textColor
-        }}
+        options={ optionsHeader }
       />
       <HomeStackNavigator.Screen 
         name="Caducidades"
         component={ CaducidadesPage }
-        options={{
-          headerBackTitleVisible: false,
-          headerTitle: "Próximos a Caducar",
-          headerTitleAlign: "center",
-          headerTitleStyle: styles.title,
-          headerStyle: { backgroundColor: theme.colors.bgPrimary },
-          headerTintColor: theme.colors.textColor
-        }}
+        options={ optionsHeader }
       />
       <HomeStackNavigator.Screen 
-        name="NuevoProducto"
+        name="Nuevo Producto"
         component={ NuevoProductoPage }
-        options={{
-          headerBackTitleVisible: false,
-          headerTitle: "Nuevo Producto",
-          headerTitleAlign: "center",
-          headerTitleStyle: styles.title,
-          headerStyle: { backgroundColor: theme.colors.bgPrimary},
-          headerTintColor: theme.colors.textColor
-        }}
-      />
-      <HomeStackNavigator.Screen 
-        name="Settings"
-        component={ SettingsPage }
-        options={{
-          headerBackTitleVisible: false,
-          headerTitle: "Configuracion",
-          headerTitleAlign: "center",
-          headerTitleStyle: styles.title,
-          headerStyle: { backgroundColor: theme.colors.bgPrimary},
-          headerTintColor: theme.colors.textColor
-        }}
+        options={ optionsHeader }
       />
     </HomeStackNavigator.Navigator>
     
   )
 }
-
-
 
 const Tab = createBottomTabNavigator();
 
@@ -154,15 +110,11 @@ function MyTabs () {
         component={ SettingsPage } 
         options={{
           headerShown: false,
-          // headerBackground: theme.colors.bgSecondary
-
         }}
       />
     </Tab.Navigator>
   )
 }
-
-
 
 export default function Navigation () {
   return (
