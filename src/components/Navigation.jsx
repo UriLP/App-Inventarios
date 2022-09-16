@@ -35,7 +35,7 @@ function MyStack () {
   return (
     
     <HomeStackNavigator.Navigator
-      initialRouteName="HomePage"
+      initialRouteName="Nuevo Producto"
       screenOptions={{
         headerMode: 'screen',
         cardStyle: { backgroundColor: theme.colors.bgPrimary }

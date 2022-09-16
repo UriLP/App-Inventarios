@@ -1,19 +1,41 @@
-import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Button } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Button, Dimensions } from "react-native";
 import Input from "../components/TextInput";
 import theme from "../theme";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from "@react-navigation/native";
 import ButtonForm from "../components/Button";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const NuevoProductoPage = () => {
 
-  const navigation = useNavigation()
+  const [textInputValue, setTextInputValue] = useState('');
+  const [value, setValue] = useState('');
+  const [user, setUser] = useState('');
+
+  const saveValue = () => {
+    if (textInputValue && user) {
+      AsyncStorage.setItem('key1', textInputValue)
+      AsyncStorage.setItem('key2', user)
+      setTextInputValue('');
+      setUser('');
+      alert('Data saved')
+    } else {
+      alert('Please fill data')
+    }
+  }
+
+  const getValue = () => {
+    AsyncStorage.getItem('key1', 'key2')
+      .then((value) => {
+        setValue(value)
+      })
+  }
   
   return (
     <View style={ styles.container }>
      
-     <View style={ styles.containerInput } >
+     {/* <View style={ styles.containerInput } >
         <Text style={ styles.nombreInput } >Categoría</Text>
         <Input style={ styles.input } >
           <Text>Bebidas, Botanas...</Text>
@@ -46,17 +68,45 @@ const NuevoProductoPage = () => {
         <Input style={ styles.input } >
           <Text>0123456789</Text>
         </Input>
-      </View>
+      </View> */}
 
-      <ButtonForm />      
+      {/* <ButtonForm /> */}
 
+      <TextInput
+        style={ styles.input }
+        value={ textInputValue }
+        onChangeText={ (data) => setTextInputValue(data) }
+      />
+       <TextInput
+        style={ styles.input }
+        value={ user }
+        onChangeText={ (data) => setUser(data) }
+      />
+
+      <TouchableOpacity 
+        onPress={ saveValue }
+        style={ styles.buttonGuardar }
+      >
+        <Text style={ styles.nombreButton}>Save Value</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity 
+        onPress={ getValue }
+        style={ styles.buttonGuardar }
+      >
+        <Text style={ styles.nombreButton}>Get Value</Text>
+      </TouchableOpacity>
+    
+      <Text style={ styles.nombreButton }>
+        { value }
+      </Text>
     
     </View>
   )
 }
 
 
-
+const width = Dimensions.get('window').width - 50;
 
 const styles = StyleSheet.create({
   container: {
@@ -66,7 +116,8 @@ const styles = StyleSheet.create({
     marginHorizontal: "auto",
     marginTop: 15,
     // flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
+    height: "100%"
   },
   titulo: {
     fontSize: theme.fontSizes.subHeadingSize,
@@ -75,15 +126,17 @@ const styles = StyleSheet.create({
     color: theme.colors.textColor
   },
   containerInput: {
-    marginVertical: 10
+    marginVertical: 2
   },
   input: {
     borderColor: theme.colors.active,
     borderWidth: 1,
     padding: 10,
-    marginLeft: 15,
-    width: 300,
+    margin: 15,
+    width,
     color: theme.colors.active,
+    borderRadius: 5
+    
   },
   nombreInput: {
     fontSize: theme.fontSizes.formSize,
