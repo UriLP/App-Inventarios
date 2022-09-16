@@ -11,12 +11,12 @@ import { getAllMedicinas } from "../firebase/api";
 
 const Home = () => {
 
-  const cargarMedicinas = async() => {
-    const respuesta = await getAllMedicinas();
-    console.table(respuesta);
-  }
+  // const cargarMedicinas = async() => {
+  //   const respuesta = await getAllMedicinas();
+  //   console.table(respuesta);
+  // }
 
-  cargarMedicinas();
+  // cargarMedicinas();
 
   const navigation = useNavigation()
 

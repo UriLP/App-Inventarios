@@ -1,9 +1,9 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState } from "react";
 import { Keyboard, StyleSheet, TextInput } from "react-native";
 import theme from "../theme";
 
 const Input = ({ children }) => {
-  const [isFocused, setIsFocused] = useState(false);
   return (
     <TextInput
       placeholder={ children.props.children }
