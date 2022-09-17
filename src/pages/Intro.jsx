@@ -5,7 +5,7 @@ import theme from '../theme'
 import RoundIconBtn from '../components/RoundIconBtn'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const Intro = () => {
+const Intro = ({ onFinish }) => {
 
   const [ name, setName ] = useState('')
 
@@ -14,16 +14,17 @@ const Intro = () => {
   const handleSubmit = async () => {
     const user = { name : name }
     await AsyncStorage.setItem('user', JSON.stringify(user))
+    if ( onFinish ) onFinish()
   }
 
   return (
     <>
-      <StatusBar hidden />
+      {/* <StatusBar hidden /> */}
       <View style={ styles.container }>
         <Text style={ styles.textLabel } >Ingresa tu nombre para continuar</Text>
         <TextInput 
           placeholder='Tu nombre' 
-          placeholderTextColor={ theme.colors.bgSecondary } 
+          placeholderTextColor={ theme.colors.inactive } 
           style={ styles.textInput } 
           value={ name }
           onChangeText={ handleOnChangeText }

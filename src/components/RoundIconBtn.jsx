@@ -19,7 +19,7 @@ export default RoundIconBtn
 
 const styles = StyleSheet.create({
   icon: {
-    backgroundColor: theme.colors.bgSecondary,
+    backgroundColor: theme.colors.inactive,
     padding: 15,
     borderRadius: 50,
     elevation: 5,

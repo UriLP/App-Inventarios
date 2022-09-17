@@ -1,36 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 import Input from "../components/TextInput";
 import theme from "../theme";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from "@react-navigation/native";
+import SearchBar from "../components/SearchBar";
+import InputModal from "../components/InputModal";
 
 const InventarioFisicoPage = () => {
 
-  const navigation = useNavigation()
+  const nameScreen = 'FisicoPage'
+
+  const [ modalVisible, setModalVisible ] = useState(false)
   
+  const handleOnSubmit = ( familia, neto ) => {
+    console.log(familia, neto);
+  }
+
   return (
     <View style={ styles.container }>
 
-      <Input style={ styles.input } >
-        <Text>Buscar...</Text>
-      </Input>
+      <SearchBar nameScreen={ nameScreen } onPress={ () => setModalVisible(true) } />
 
-      <TouchableOpacity onPress={ () => navigation.navigate("Nuevo Producto") }>
-
-        <Ionicons name="add-outline" color={ theme.colors.active } size={32} />
-      </TouchableOpacity>
-     
-      
-      
-      
-     
-
-      {/* <TouchableOpacity onPress={ () => navigation.navigate("NuevoProducto") }>
-
-        <Ionicons name="add-outline" color={ theme.colors.active } size={32} />
-      </TouchableOpacity> */}
-
+      <InputModal 
+        visible={ modalVisible } 
+        onClose={ () => setModalVisible(false) } 
+        onSubmit={ handleOnSubmit }
+      />
     
     </View>
   )

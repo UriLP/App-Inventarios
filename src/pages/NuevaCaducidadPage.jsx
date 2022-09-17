@@ -7,7 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import ButtonForm from "../components/Button";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const NuevoProductoPage = () => {
+const NuevaCaducidadPage = () => {
 
   const [textInputValue, setTextInputValue] = useState('');
   const [value, setValue] = useState('');
@@ -180,4 +180,4 @@ const styles = StyleSheet.create({
   
 })
 
-export default NuevoProductoPage
+export default NuevaCaducidadPage

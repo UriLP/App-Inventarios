@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, View } from "react-native"
 import Home from "../pages/HomePage"
 import Login from "../pages/Login"
@@ -7,34 +7,37 @@ import { Navigate, Route, Routes } from 'react-router-native'
 import Navigation from './Navigation'
 import { StatusBar } from 'expo-status-bar'
 import theme from '../theme'
-
-// const uri = '../../assets/planta.jpg'
-const uri = 'https://images.pexels.com/photos/1391293/pexels-photo-1391293.jpeg?auto=compress&cs=tinysrgb&w=600'
+import Intro from '../pages/Intro'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Main = () => {
+
+  const [ user, setUser ] = useState({})
+  const findUser = async () => {
+    const result = await AsyncStorage.getItem('user')
+    if ( result !== null ) {
+      setUser(JSON.parse(result))
+    }
+  }
+
+  useEffect(() => {
+    findUser()
+    // AsyncStorage.clear()
+  }, [])
+
+  if ( !user.name ) return <Intro onFinish={ findUser } />
+
   return (
-    <View style={ styles.container }>
-      
+    <>
       <StatusBar style='light' />
-      {/* <Image source={{ uri }} style={ [styles.image, StyleSheet.absoluteFill] }  /> */}
-      <Navigation />
-        
-    </View>
+      <Navigation user={ user } />        
+    </>
   )
 }
 
 const styles = StyleSheet.create ({
   container: {
     flex: 1,
-    // backgroundColor: 'transparent',
-    // alignItems: 'center',
-    // justifyContent: 'center'
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
-    zIndex: 0
   }
 })
 

@@ -44,12 +44,6 @@ const SettingsPage = () => {
 }
 
 const styles = StyleSheet.create({
-  titulo: {
-    fontSize: 20,
-    textAlign: "center",
-    marginTop: "20%",
-    color: theme.colors.textColor
-  },
   container: {
     flex: 1,
     paddingTop: 20,
@@ -60,15 +54,15 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     marginHorizontal: 16,
     borderBottomWidth: 1,
-    borderBottomColor: theme.colors.bgSecondary
+    borderBottomColor: theme.colors.inactive
   },
   header: {
-    fontSize: 32,
+    fontSize: theme.fontSizes.bodySize,
     marginHorizontal: 16,
     color: theme.colors.active
   },
   title: {
-    fontSize: 24,
+    fontSize: theme.fontSizes.formSize,
     color: theme.colors.textColor
   }
 })

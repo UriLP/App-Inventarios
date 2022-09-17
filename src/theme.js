@@ -8,7 +8,7 @@ const theme = {
   },
   colors: {
     bgPrimary: '#212121',
-    bgSecondary: '#0D7377',
+    inactive: '#0D7377',
     active: '#32E0C4',
     textColor: '#EEEEEE'
   },
