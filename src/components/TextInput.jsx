@@ -3,12 +3,14 @@ import { useState } from "react";
 import { Keyboard, StyleSheet, TextInput } from "react-native";
 import theme from "../theme";
 
-const Input = ({ children }) => {
+const Input = ({ children, onChangeText, value }) => {
   return (
     <TextInput
       placeholder={ children.props.children }
-      placeholderTextColor={ theme.colors.bgSecondary }
+      placeholderTextColor={ theme.colors.inactive }
       style={ styles.input }
+      onChangeText={ onChangeText }
+      value={ value }
     />
   )
 }

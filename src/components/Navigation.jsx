@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createStackNavigator } from "@react-navigation/stack"
 import { ImageBackground, StyleSheet } from "react-native";
+import { useEffect, useState } from "react";
 
 //screens
 import Home from "../pages/HomePage";
@@ -12,10 +13,15 @@ import CaducidadesPage from "../pages/CaducidadesPage";
 import SettingsPage from "../pages/SettingsPage";
 import NuevoProductoPage from "../pages/NuevoProductoPage";
 import theme from "../theme";
+import NuevaCaducidadPage from "../pages/NuevaCaducidadPage";
 
 const HomeStackNavigator = createStackNavigator();
 
 const styles = StyleSheet.create ({
+  subTitle: {
+    color: theme.colors.textColor,
+    fontSize: theme.fontSizes.subHeadingSize
+  },
   title: {
     color: theme.colors.textColor,
     fontSize: theme.fontSizes.headerSize
@@ -24,27 +30,29 @@ const styles = StyleSheet.create ({
 
 let optionsHeader = {
   headerTitleAlign: "center",
-  headerTitleStyle: styles.title,
+  headerTitleStyle: styles.subTitle,
   headerStyle: { backgroundColor: theme.colors.bgPrimary },
   headerBackTitleVisible: false,
   headerTintColor: theme.colors.textColor,
 }
 
 function MyStack () {
-  
   return (
     
     <HomeStackNavigator.Navigator
-      initialRouteName="Nuevo Producto"
+      initialRouteName="HomePage"
       screenOptions={{
         headerMode: 'screen',
         cardStyle: { backgroundColor: theme.colors.bgPrimary }
       }}
     >
       <HomeStackNavigator.Screen 
+        // name={ `Good ${ greet } ${ user }` }
         name={ "Bienvenido" }
         component={ Home }
-        options= { optionsHeader }
+        options={{
+          headerShown: false
+        }}
       />
       <HomeStackNavigator.Screen 
         name="Inventario Físico"
@@ -66,6 +74,11 @@ function MyStack () {
         component={ NuevoProductoPage }
         options={ optionsHeader }
       />
+      <HomeStackNavigator.Screen 
+        name="Nueva Caducidad"
+        component={ NuevaCaducidadPage }
+        options={ optionsHeader }
+      />
     </HomeStackNavigator.Navigator>
     
   )
@@ -73,7 +86,26 @@ function MyStack () {
 
 const Tab = createBottomTabNavigator();
 
-function MyTabs () {
+function MyTabs ({ user }) {
+  const [ greet, setGreet ] = useState('')
+
+  const findGreet = () => {
+    const hrs = new Date().getHours()
+
+    if ( hrs === 0 || hrs < 12 ) {
+      return setGreet('Días')
+    } else if ( hrs === 1 || hrs < 19 ) {
+      return setGreet('Tardes')
+    }else {
+      return setGreet('Noches')
+    }
+
+  }
+
+  useEffect(() => {
+    findGreet()
+  }, [])
+
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -81,14 +113,14 @@ function MyTabs () {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName
 
-          if (route.name === 'Home') {
+          if (route.name === 'Home' ) {
             iconName = focused
               ? 'home'
               : 'home-outline'
           } else if (route.name === 'Settings') {
             iconName = focused ? 'settings' : 'settings-outline'
           }
-
+          // console.log(MyStack);
           return <Ionicons name={ iconName } size={ size } color={ color } />
         },
         tabBarActiveTintColor: theme.colors.active,
@@ -98,28 +130,36 @@ function MyTabs () {
       })}
     >
       <Tab.Screen 
-        name="Home" 
+        name="Home"
         component={ MyStack } 
         options={{
-          tabBarBadge: 3,
-          headerShown: false,
+          headerTitle: `Buenas ${ greet } ${ user.name }`,
+          headerTitleAlign: "center",
+          headerTitleStyle: styles.title,
+          headerStyle: { backgroundColor: theme.colors.bgPrimary },
+          headerTintColor: theme.colors.textColor,
         }}
       />
       <Tab.Screen 
         name="Settings" 
         component={ SettingsPage } 
         options={{
-          headerShown: false,
+          headerTitle: "Configuración",
+          headerTitleAlign: "center",
+          headerTitleStyle: styles.title,
+          headerStyle: { backgroundColor: theme.colors.bgPrimary },
+          headerTintColor: theme.colors.textColor,
         }}
       />
     </Tab.Navigator>
   )
 }
 
-export default function Navigation () {
+export default function Navigation ({ user }) {
   return (
     <NavigationContainer>
-      <MyTabs />
+      <MyTabs user={ user } />
     </NavigationContainer>
   )
 }
+

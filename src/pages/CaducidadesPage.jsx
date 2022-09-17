@@ -2,32 +2,19 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 import Input from "../components/TextInput";
 import theme from "../theme";
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from "@react-navigation/native";
+import SearchBar from "../components/SearchBar";
 
 const CaducidadesPage = () => {
+  const nameScreen = 'Caducidades'
   return (
     <View style={ styles.container }>
 
-      <Input style={ styles.input } >
-        <Text>Buscar...</Text>
-      </Input>
-
-      <TouchableOpacity onPress={ () => navigation.navigate("NuevoProducto") }>
-
-        <Ionicons name="add-outline" color={ theme.colors.active } size={32} />
-      </TouchableOpacity>
-    
-      
-      
-      
-    
+      <SearchBar nameScreen={ nameScreen } />
 
       {/* <TouchableOpacity onPress={ () => navigation.navigate("NuevoProducto") }>
-
         <Ionicons name="add-outline" color={ theme.colors.active } size={32} />
       </TouchableOpacity> */}
-
     
     </View>
   )

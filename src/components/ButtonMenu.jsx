@@ -43,7 +43,7 @@ export default ButtonMenu
 
 const styles = StyleSheet.create({
   botonMenu: {
-    backgroundColor: theme.colors.bgSecondary,
+    backgroundColor: theme.colors.inactive,
     marginHorizontal: 30,
     marginTop: 20,
     height: 150,

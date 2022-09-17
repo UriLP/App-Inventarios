@@ -22,7 +22,6 @@ const Home = () => {
 
   return (
     <View style={ styles.container }>
-      
       <ButtonMenu>
         <Text style={ styles.text }>Inventario Físico</Text>
       </ButtonMenu>
