@@ -7,6 +7,7 @@ import RoundIconBtn from './RoundIconBtn'
 const InputModal = ({ visible, onClose, onSubmit }) => {
 
   const [ familia, setFamilia ] = useState('')
+  const [ nombre, setNombre ] = useState('')
   const [ neto, setNeto ] = useState('')
 
   //Oculta el teclado cuando el usuario toca la pantalla en un spacio en blanco
@@ -16,19 +17,22 @@ const InputModal = ({ visible, onClose, onSubmit }) => {
 
   const handleOnChangeText = ( text, valueFor ) => {
     if ( valueFor === 'Familia' ) setFamilia(text)
+    if ( valueFor === 'Nombre' ) setNombre(text)
     if ( valueFor === 'Neto' ) setNeto(text)
   }
 
   const handleSubmit = () => {
-    if ( !familia.trim() && !neto.trim() ) return onClose()
-    onSubmit( familia, neto )
+    if ( !familia.trim() && !nombre.trim() && !neto.trim() ) return onClose()
+    onSubmit( familia, nombre, neto )
     setFamilia('')
+    setNombre('')
     setNeto('')
     onClose()
   }
 
   const closeModal = () => {
     setFamilia('')
+    setNombre('')
     setNeto('')
     onClose()
   }
@@ -39,7 +43,6 @@ const InputModal = ({ visible, onClose, onSubmit }) => {
       <Modal
         visible={ visible }
         animationType='fade'
-        
       >
         <View style={ styles.container }>
 
@@ -49,7 +52,17 @@ const InputModal = ({ visible, onClose, onSubmit }) => {
               value={ familia }
               onChangeText={ (text) => handleOnChangeText( text, 'Familia') }
             >
-              <Text>Bonafont, Electrolit...</Text>
+              <Text>Bonafont, Electrolit, Sabritas...</Text>
+            </Input>
+          </View>
+
+          <View style={ styles.containerInput } >
+            <Text style={ styles.nombreInput } >Nombre o Sabor del Producto</Text>
+            <Input
+              value={ nombre }
+              onChangeText={ (text) => handleOnChangeText( text, 'Nombre') }
+            >
+              <Text>Normal, Uva, Flamin Hot...</Text>
             </Input>
           </View>
 
@@ -59,9 +72,10 @@ const InputModal = ({ visible, onClose, onSubmit }) => {
               value={ neto }
               onChangeText={ (text) => handleOnChangeText( text, 'Neto') }
             >
-              <Text>630ml, 2L, 50gr</Text>
+              <Text>630ml, 2L, 50gr...</Text>
             </Input>
           </View>
+
           <View style={ styles.buttonContainer }>
             <RoundIconBtn 
               antIconName='check' 
