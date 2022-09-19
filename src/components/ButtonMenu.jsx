@@ -25,7 +25,7 @@ const ButtonMenu = ({ children }) => {
 
   return (
     <View style={ styles.botonMenu }>
-      <StyledText style={ styles.card } color='white'>        
+      <View style={ styles.card } color='white'>      
         <TouchableOpacity
           onPress={ () => navigation.navigate( children.props.children ) }
           style={ styles.opacityEffect }
@@ -33,8 +33,8 @@ const ButtonMenu = ({ children }) => {
           <Ionicons name={ iconName } size={ 60 } color={ color } />
 
         </TouchableOpacity>
-        { children }
-      </StyledText>  
+        <Text>{ children }</Text>
+      </View>  
     </View>
   )
 }
@@ -63,7 +63,8 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     padding: 10,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    alignContent: "center"
   },
   opacityEffect: {
     display: "flex",
