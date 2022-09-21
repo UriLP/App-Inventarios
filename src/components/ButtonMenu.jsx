@@ -24,18 +24,18 @@ const ButtonMenu = ({ children }) => {
   let color = theme.colors.textColor
 
   return (
-    <View style={ styles.botonMenu }>
-      <View style={ styles.card } color='white'>      
-        <TouchableOpacity
-          onPress={ () => navigation.navigate( children.props.children ) }
-          style={ styles.opacityEffect }
-          >  
-          <Ionicons name={ iconName } size={ 60 } color={ color } />
+    <TouchableOpacity
+      onPress={ () => navigation.navigate( children.props.children ) }
+      style={ styles.opacityEffect }
+    >  
+      <View style={ styles.botonMenu }>
+        <View style={ styles.card } color='white'>      
+            <Ionicons name={ iconName } size={ 60 } color={ color } />
 
-        </TouchableOpacity>
-        <Text>{ children }</Text>
-      </View>  
-    </View>
+          <Text>{ children }</Text>
+        </View>  
+      </View>
+    </TouchableOpacity>
   )
 }
 

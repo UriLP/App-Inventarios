@@ -31,7 +31,7 @@ const SearchBar = ({ containerStyle, nameScreen, onPress }) => {
       />
       {/* <TouchableOpacity onPress={ () => navigation.navigate(newItem()) }> */}
       <TouchableOpacity onPress={ onPress }>
-        <Ionicons name="add-outline" color={ theme.colors.active } size={32} />
+        <Ionicons name="duplicate-outline" color={ theme.colors.active } size={32} />
       </TouchableOpacity>
     </View>
   )
@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     width,
     color: theme.colors.active,
-    marginVertical: 15
+    marginVertical: 15,
+    marginRight: 10
   }
 })

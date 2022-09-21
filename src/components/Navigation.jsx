@@ -14,6 +14,7 @@ import SettingsPage from "../pages/SettingsPage";
 import NuevoProductoPage from "../pages/NuevoProductoPage";
 import theme from "../theme";
 import NuevaCaducidadPage from "../pages/NuevaCaducidadPage";
+import DetailsScreen from "../pages/DetailsScreen";
 
 const HomeStackNavigator = createStackNavigator();
 
@@ -36,7 +37,26 @@ let optionsHeader = {
   headerTintColor: theme.colors.textColor,
 }
 
-function MyStack () {
+function MyStack (user) {
+  const [ greet, setGreet ] = useState('')
+
+  const findGreet = () => {
+    const hrs = new Date().getHours()
+
+    if ( hrs === 0 || hrs < 12 ) {
+      return setGreet('Días')
+    } else if ( hrs === 1 || hrs < 19 ) {
+      return setGreet('Tardes')
+    }else {
+      return setGreet('Noches')
+    }
+
+  }
+
+  useEffect(() => {
+    findGreet()
+  }, [])
+
   return (
     
     <HomeStackNavigator.Navigator
@@ -47,12 +67,10 @@ function MyStack () {
       }}
     >
       <HomeStackNavigator.Screen 
-        // name={ `Good ${ greet } ${ user }` }
-        name={ "Bienvenido" }
+        name={ `Buenas ${ greet } ${ user.name }` }
+        // name={ "Bienvenido" }
         component={ Home }
-        options={{
-          headerShown: false
-        }}
+        options={ optionsHeader }
       />
       <HomeStackNavigator.Screen 
         name="Inventario Físico"
@@ -79,6 +97,11 @@ function MyStack () {
         component={ NuevaCaducidadPage }
         options={ optionsHeader }
       />
+      <HomeStackNavigator.Screen 
+        name="Details"
+        component={ DetailsScreen }
+        options={ optionsHeader }
+      />
     </HomeStackNavigator.Navigator>
     
   )
@@ -86,25 +109,9 @@ function MyStack () {
 
 const Tab = createBottomTabNavigator();
 
+
 function MyTabs ({ user }) {
-  const [ greet, setGreet ] = useState('')
-
-  const findGreet = () => {
-    const hrs = new Date().getHours()
-
-    if ( hrs === 0 || hrs < 12 ) {
-      return setGreet('Días')
-    } else if ( hrs === 1 || hrs < 19 ) {
-      return setGreet('Tardes')
-    }else {
-      return setGreet('Noches')
-    }
-
-  }
-
-  useEffect(() => {
-    findGreet()
-  }, [])
+  const TabsUserName = props => MyStack(user)
 
   return (
     <Tab.Navigator
@@ -131,9 +138,12 @@ function MyTabs ({ user }) {
     >
       <Tab.Screen 
         name="Home"
-        component={ MyStack } 
+        // component={ MyStack } 
+        component={ TabsUserName } 
         options={{
-          headerTitle: `Buenas ${ greet } ${ user.name }`,
+          // headerTitle: `Buenas`,
+          // headerTitle: `Buenas ${ greet } ${ user.name }`,
+          headerShown: false,
           headerTitleAlign: "center",
           headerTitleStyle: styles.title,
           headerStyle: { backgroundColor: theme.colors.bgPrimary },
