@@ -16,19 +16,22 @@ const InventarioFisicoPage = () => {
   const [ modalVisible, setModalVisible ] = useState(false)
   const [ productos, setProductos ] = useState([])
 
+  const navigation = useNavigation()
+
   const findProductos = async () => {
     const result = await AsyncStorage.getItem('productos')
     console.log(result);
     if ( result !== null ) setProductos(JSON.parse(result))
   }
 
-  const handleOnSubmit = async ( familia, nombre, neto ) => {
+  const handleOnSubmit = async ( familia, nombre, neto, piezas ) => {
 
     const producto = { 
       id: Date.now(),
       familia,
       nombre,
       neto,
+      piezas,
       time: Date.now()
     }
 
@@ -38,6 +41,10 @@ const InventarioFisicoPage = () => {
 
     await AsyncStorage.setItem('productos', JSON.stringify(updatedProductos))
 
+  }
+
+  const openProducto = (producto) => {
+    navigation.navigate('Details', { producto })
   }
 
   useEffect(() => {
@@ -55,7 +62,7 @@ const InventarioFisicoPage = () => {
           <FlatList
             data={ productos }
             keyExtractor={ item => item.id.toString() }
-            renderItem={ ({ item }) => <Producto item={ item } /> }
+            renderItem={ ({ item }) => <Producto onPress={ () => openProducto(item) } item={ item } /> }
           />
         </View>
         

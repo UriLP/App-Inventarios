@@ -12,6 +12,11 @@ const theme = {
     active: '#32E0C4',
     textColor: '#EEEEEE'
   },
+  colorsCount: {
+    ubi1: '#85b6ff',
+    ubi2: '#fef5af',
+    ubi3: '#ff8f50',
+  },
   fontSizes: {
     headerSize: 24,
     subHeadingSize: 20,

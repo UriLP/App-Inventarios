@@ -1,17 +1,24 @@
-import { Dimensions, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import theme from '../theme'
+import { useNavigation } from "@react-navigation/native";
 
-const Producto = ({ item }) => {
-  const { familia, nombre, neto } = item
+
+const Producto = ({ item, onPress }) => {
+  const navigation = useNavigation()
+  const { familia, nombre, neto, piezas } = item
   return (
-    <View style={ styles.container }>
+    <TouchableOpacity style={ styles.container } onPress={ onPress }>
+    {/* <TouchableOpacity style={ styles.container } onPress={ () => navigation.navigate("Details") }> */}
+      
       <Text style={ styles.familia } numberOfLines={ 2 }>{ familia }</Text>
       <View style={ styles.subTitle }>
         <Text style={ styles.nombre } numberOfLines={ 2 }>{ nombre }</Text>
         <Text style={ styles.neto } numberOfLines={ 2 }>{ neto }</Text>
+        <Text style={ styles.neto } numberOfLines={ 2 }>Piezas: { piezas }</Text>
       </View>
-    </View>
+
+    </TouchableOpacity>
   )
 }
 
