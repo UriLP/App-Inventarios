@@ -1,9 +1,21 @@
-import { StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
+import { Alert, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useHeaderHeight } from '@react-navigation/elements'
 import theme from '../theme'
 import RoundIconBtn from '../components/RoundIconBtn'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+
+const formatDate = ms => {
+  const date = new Date(ms)
+  const day = date.getDate()
+  const month = date.getMonth() + 1
+  const year = date.getFullYear()
+  const hrs = date.getHours()
+  const min = date.getMinutes()
+  const sec = date.getSeconds()
+
+  return `${ day }/${ month }/${ year } - ${ hrs }:${ min }:${ sec }`
+}
 
 const DetailsScreen = (props) => {
   const { producto } = props.route.params
@@ -83,6 +95,37 @@ const DetailsScreen = (props) => {
     if ( result3 !== null ) setCount3(JSON.parse(result3))
   }
 
+  const deleteProducto = async () => {
+    const result = await AsyncStorage.getItem('productos')
+    let productos= []
+    if( result !== null ) productos = JSON.parse(result)
+
+    const newProducto = productos.filter( n => n.id !== producto.id )
+
+    await AsyncStorage.setItem('productos', JSON.stringify(newProducto))
+
+    props.navigation.goBack()
+  }
+
+  const displayDeleteAlert = () => {
+    Alert.alert(
+      '¿Estas seguro?', 
+      '¡Esta acción borrara el producto permanentemente!',
+      [
+        {
+          text: 'Borrar',
+          onPress: deleteProducto
+        },
+        {
+          text: 'No gracias',
+          onPress: () => console.log('No gracias')
+        },
+      ],
+      {
+        cancelable: true,
+      }
+    )
+  } 
   useEffect(() => {
     loadCounts()
     // AsyncStorage.clear()
@@ -92,6 +135,7 @@ const DetailsScreen = (props) => {
     // <View style={{ paddingTop: headerHeight }}>
     <View style={[ styles.container, { marginTop: 100 } ]}>
       <View>
+        <Text style={ styles.time }>{`Creado ${ formatDate(producto.time) }`}</Text>
         <Text style={ styles.nombreProducto }>{ producto.familia } { producto.nombre } { producto.neto }</Text>
       </View>
 
@@ -138,6 +182,22 @@ const DetailsScreen = (props) => {
         </View>
       </View>
 
+      <View style={ styles.btnContainer }>
+        <TouchableOpacity>
+          <RoundIconBtn
+            antIconName='delete'
+            style={{ marginHorizontal: 15 }}
+            onPress={ displayDeleteAlert }
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+          <RoundIconBtn
+            antIconName='edit'
+          />
+        </TouchableOpacity>
+      </View>
+
     </View>
   )
 }
@@ -166,7 +226,8 @@ const styles = StyleSheet.create({
     // borderColor: theme.colors.active,
     borderWidth: 2,
     padding: 15,
-    marginHorizontal: 5
+    marginHorizontal: 5,
+    borderRadius: 10
   },
   ubicacion: {
     color: theme.colors.textColor,
@@ -201,6 +262,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'center'
   },
+  time: {
+    textAlign: 'right',
+    color: theme.colors.textColor,
+    fontSize: 10
+  },
+  btnContainer: {
+    flexDirection: 'row',
+    marginTop: 20
+  }
 
 
 })
