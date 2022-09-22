@@ -8,21 +8,21 @@ import SearchBar from "../components/SearchBar";
 import InputModal from "../components/InputModal";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Producto from "../components/Producto";
+import { useProductos } from "../contexts/ProductoProvider";
 
 const InventarioFisicoPage = () => {
 
   const nameScreen = 'FisicoPage'
 
   const [ modalVisible, setModalVisible ] = useState(false)
-  const [ productos, setProductos ] = useState([])
-
+  const { productos, setProductos } = useProductos()
   const navigation = useNavigation()
 
-  const findProductos = async () => {
-    const result = await AsyncStorage.getItem('productos')
-    console.log(result);
-    if ( result !== null ) setProductos(JSON.parse(result))
-  }
+  // const findProductos = async () => {
+  //   const result = await AsyncStorage.getItem('productos')
+  //   console.log(result);
+  //   if ( result !== null ) setProductos(JSON.parse(result))
+  // }
 
   const handleOnSubmit = async ( familia, nombre, neto, piezas ) => {
 
@@ -47,10 +47,10 @@ const InventarioFisicoPage = () => {
     navigation.navigate('Details', { producto })
   }
 
-  useEffect(() => {
-    findProductos()
-    // AsyncStorage.clear()
-  }, [])
+  // useEffect(() => {
+  //   findProductos()
+  //   // AsyncStorage.clear()
+  // }, [])
 
   return (
     <TouchableWithoutFeedback onPress={ Keyboard.dismiss } >

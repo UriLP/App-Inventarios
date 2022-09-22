@@ -1,10 +1,10 @@
 import { Keyboard, Modal, StatusBar, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Input from './TextInput'
 import theme from '../theme'
 import RoundIconBtn from './RoundIconBtn'
 
-const InputModal = ({ visible, onClose, onSubmit }) => {
+const InputModal = ({ visible, onClose, onSubmit, producto, isEdit }) => {
 
   const [ familia, setFamilia ] = useState('')
   const [ nombre, setNombre ] = useState('')
@@ -15,6 +15,14 @@ const InputModal = ({ visible, onClose, onSubmit }) => {
     Keyboard.dismiss()
   }
 
+  useEffect(() => {
+    if ( isEdit ) {
+      setFamilia(producto.familia)
+      setNombre(producto.nombre)
+      setNeto(producto.neto)
+    }
+  }, [ isEdit ])
+
   const handleOnChangeText = ( text, valueFor ) => {
     if ( valueFor === 'Familia' ) setFamilia(text)
     if ( valueFor === 'Nombre' ) setNombre(text)
@@ -23,17 +31,25 @@ const InputModal = ({ visible, onClose, onSubmit }) => {
 
   const handleSubmit = () => {
     if ( !familia.trim() && !nombre.trim() && !neto.trim() ) return onClose()
-    onSubmit( familia, nombre, neto )
-    setFamilia('')
-    setNombre('')
-    setNeto('')
+
+    if ( isEdit ) {
+      onSubmit( familia, nombre, neto, Date.now() )
+      
+    }else {
+      onSubmit( familia, nombre, neto )
+      setFamilia('')
+      setNombre('')
+      setNeto('')
+    }
     onClose()
   }
 
   const closeModal = () => {
-    setFamilia('')
-    setNombre('')
-    setNeto('')
+    if ( !isEdit ) {
+      setFamilia('')
+      setNombre('')
+      setNeto('') 
+    }
     onClose()
   }
 

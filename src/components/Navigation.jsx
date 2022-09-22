@@ -15,6 +15,7 @@ import NuevoProductoPage from "../pages/NuevoProductoPage";
 import theme from "../theme";
 import NuevaCaducidadPage from "../pages/NuevaCaducidadPage";
 import DetailsScreen from "../pages/DetailsScreen";
+import ProductoProvider from "../contexts/ProductoProvider";
 
 const HomeStackNavigator = createStackNavigator();
 
@@ -58,51 +59,53 @@ function MyStack (user) {
   }, [])
 
   return (
-    
-    <HomeStackNavigator.Navigator
-      initialRouteName="HomePage"
-      screenOptions={{
-        headerMode: 'screen',
-        cardStyle: { backgroundColor: theme.colors.bgPrimary }
-      }}
-    >
-      <HomeStackNavigator.Screen 
-        name={ `Buenas ${ greet } ${ user.name }` }
-        // name={ "Bienvenido" }
-        component={ Home }
-        options={ optionsHeader }
-      />
-      <HomeStackNavigator.Screen 
-        name="Inventario Físico"
-        component={ InventarioFisico }
-        options={ optionsHeader }
-      />
-      <HomeStackNavigator.Screen 
-        name="Inventario en Sistema"
-        component={ InventarioSistema }
-        options={ optionsHeader }
-      />
-      <HomeStackNavigator.Screen 
-        name="Caducidades"
-        component={ CaducidadesPage }
-        options={ optionsHeader }
-      />
-      <HomeStackNavigator.Screen 
-        name="Nuevo Producto"
-        component={ NuevoProductoPage }
-        options={ optionsHeader }
-      />
-      <HomeStackNavigator.Screen 
-        name="Nueva Caducidad"
-        component={ NuevaCaducidadPage }
-        options={ optionsHeader }
-      />
-      <HomeStackNavigator.Screen 
-        name="Details"
-        component={ DetailsScreen }
-        options={ optionsHeader }
-      />
-    </HomeStackNavigator.Navigator>
+    <ProductoProvider>
+      <HomeStackNavigator.Navigator
+        initialRouteName="HomePage"
+        screenOptions={{
+          headerMode: 'screen',
+          cardStyle: { backgroundColor: theme.colors.bgPrimary }
+        }}
+      >
+        <HomeStackNavigator.Screen 
+          name={ `Buenas ${ greet } ${ user.name }` }
+          // name={ "Bienvenido" }
+          component={ Home }
+          options={ optionsHeader }
+        />
+          
+        <HomeStackNavigator.Screen 
+          name="Inventario Físico"
+          component={ InventarioFisico }
+          options={ optionsHeader }
+        />
+        {/* <HomeStackNavigator.Screen 
+          name="Inventario en Sistema"
+          component={ InventarioSistema }
+          options={ optionsHeader }
+        />
+        <HomeStackNavigator.Screen 
+          name="Caducidades"
+          component={ CaducidadesPage }
+          options={ optionsHeader }
+        />
+        <HomeStackNavigator.Screen 
+          name="Nuevo Producto"
+          component={ NuevoProductoPage }
+          options={ optionsHeader }
+        />
+        <HomeStackNavigator.Screen 
+          name="Nueva Caducidad"
+          component={ NuevaCaducidadPage }
+          options={ optionsHeader }
+        /> */}
+        <HomeStackNavigator.Screen 
+          name="Details"
+          component={ DetailsScreen }
+          options={ optionsHeader }
+        />
+      </HomeStackNavigator.Navigator>
+    </ProductoProvider>
     
   )
 }
