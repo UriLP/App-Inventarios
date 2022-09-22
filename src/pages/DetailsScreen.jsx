@@ -4,6 +4,8 @@ import { useHeaderHeight } from '@react-navigation/elements'
 import theme from '../theme'
 import RoundIconBtn from '../components/RoundIconBtn'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useProductos } from '../contexts/ProductoProvider'
+import InputModal from '../components/InputModal'
 
 const formatDate = ms => {
   const date = new Date(ms)
@@ -18,8 +20,13 @@ const formatDate = ms => {
 }
 
 const DetailsScreen = (props) => {
-  const { producto } = props.route.params
+  // const { producto } = props.route.params
+  const [ producto, setProducto ] = useState(props.route.params.producto)
   const headerHeight = useHeaderHeight()
+
+  const { setProductos } = useProductos()
+  const [ showModal, setShowModal] = useState(false)
+  const [ isEdit, setIsEdit ] = useState(false)
 
   const [ count1, setCount1 ] = useState(0)
   const [ count2, setCount2 ] = useState(0)
@@ -102,6 +109,8 @@ const DetailsScreen = (props) => {
 
     const newProducto = productos.filter( n => n.id !== producto.id )
 
+    setProductos(newProducto)
+
     await AsyncStorage.setItem('productos', JSON.stringify(newProducto))
 
     props.navigation.goBack()
@@ -125,7 +134,37 @@ const DetailsScreen = (props) => {
         cancelable: true,
       }
     )
-  } 
+  }
+
+  const handleUpdate = async ( familia, nombre, neto, time ) => {
+    const result = await AsyncStorage.getItem('productos')
+    let productos = []
+    if ( result !== null ) productos = JSON.parse(result)
+
+    const newProducto = productos.filter(n => {
+      if ( n.id == producto.id ) {
+        n.familia = familia
+        n.nombre = nombre
+        n.neto = neto
+        n.isUpdated = true
+        n.time = time
+
+        setProducto(n)
+      }
+      return n
+    })
+
+    setProductos(newProducto)
+    await AsyncStorage.setItem('productos', JSON.stringify(newProducto))
+  }
+
+  const handleOnClose = () => setShowModal(false)
+
+  const openEditModal = () => {
+    setIsEdit(true)
+    setShowModal(true)
+  }
+
   useEffect(() => {
     loadCounts()
     // AsyncStorage.clear()
@@ -135,7 +174,12 @@ const DetailsScreen = (props) => {
     // <View style={{ paddingTop: headerHeight }}>
     <View style={[ styles.container, { marginTop: 100 } ]}>
       <View>
-        <Text style={ styles.time }>{`Creado ${ formatDate(producto.time) }`}</Text>
+        <Text style={ styles.time }>
+          { producto.isUpdated 
+            ? `Modificado ${ formatDate(producto.time) }` 
+            : `Creado ${ formatDate(producto.time) }`
+          }
+        </Text>
         <Text style={ styles.nombreProducto }>{ producto.familia } { producto.nombre } { producto.neto }</Text>
       </View>
 
@@ -194,10 +238,17 @@ const DetailsScreen = (props) => {
         <TouchableOpacity>
           <RoundIconBtn
             antIconName='edit'
+            onPress={ openEditModal }
           />
         </TouchableOpacity>
       </View>
-
+      <InputModal 
+        isEdit={ isEdit }
+        producto={ producto }
+        onClose={ handleOnClose }
+        onSubmit={ handleUpdate }
+        visible={ showModal }
+      />
     </View>
   )
 }
