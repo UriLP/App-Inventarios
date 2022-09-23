@@ -9,7 +9,7 @@ const ProductoProvider = ({ children }) => {
 
   const findProductos = async () => {
     const result = await AsyncStorage.getItem('productos')
-    console.log(result);
+    // console.log(result);
     if ( result !== null ) setProductos(JSON.parse(result))
   }
 

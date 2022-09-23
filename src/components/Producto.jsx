@@ -6,16 +6,19 @@ import { useNavigation } from "@react-navigation/native";
 
 const Producto = ({ item, onPress }) => {
   const navigation = useNavigation()
-  const { familia, nombre, neto, piezas } = item
+  const { categoria, familia, nombre, neto, piezas } = item
   return (
     <TouchableOpacity style={ styles.container } onPress={ onPress }>
     {/* <TouchableOpacity style={ styles.container } onPress={ () => navigation.navigate("Details") }> */}
       
-      <Text style={ styles.familia } numberOfLines={ 2 }>{ familia }</Text>
+      <View style={ styles.headerContainer}>
+        <Text style={ styles.familia } numberOfLines={ 2 }>{ familia }</Text>
+        <Text style={ styles.categoria } numberOfLines={ 2 }>{ categoria }</Text>
+      </View>
       <View style={ styles.subTitle }>
         <Text style={ styles.nombre } numberOfLines={ 2 }>{ nombre }</Text>
         <Text style={ styles.neto } numberOfLines={ 2 }>{ neto }</Text>
-        <Text style={ styles.neto } numberOfLines={ 2 }>Piezas: { piezas }</Text>
+        <Text style={ styles.piezas } numberOfLines={ 2 }>Piezas: { piezas }</Text>
       </View>
 
     </TouchableOpacity>
@@ -44,17 +47,37 @@ const styles = StyleSheet.create({
 
     // elevation: 5,
   },
+  headerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  categoria: {
+    color: theme.colors.textColor,
+    // fontWeight: 'bold',
+    fontSize: theme.fontSizes.smallSize
+  },
   familia: {
     color: theme.colors.textColor,
-    fontWeight: 'bold'
+    fontWeight: 'bold',  
+    fontSize: theme.fontSizes.formSize
   },
   nombre: {
     color: theme.colors.textColor,
-    marginLeft: 10
+    marginLeft: 10,
+    fontSize: theme.fontSizes.normalSize
+
   },
   neto: {
     color: theme.colors.textColor,
-    marginLeft: 5
+    marginLeft: 5,
+    fontSize: theme.fontSizes.normalSize
+
+  },
+  piezas: {
+    color: theme.colors.textColor,
+    marginLeft: 'auto',
+    fontSize: theme.fontSizes.smallSize
+
   },
   subTitle: {
     flexDirection: 'row'

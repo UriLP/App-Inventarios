@@ -9,25 +9,33 @@ import InputModal from "../components/InputModal";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Producto from "../components/Producto";
 import { useProductos } from "../contexts/ProductoProvider";
+import NotFound from "../components/NotFound";
+
+const reverseData = data => {
+  return data.sort((a, b) => {
+    const aInt = parseInt(a.time)
+    const bInt = parseInt(b.time)
+    if ( aInt < bInt ) return 1
+    if ( aInt == bInt ) return 0
+    if ( aInt > bInt ) return -1
+  })
+}
 
 const InventarioFisicoPage = () => {
 
   const nameScreen = 'FisicoPage'
 
   const [ modalVisible, setModalVisible ] = useState(false)
-  const { productos, setProductos } = useProductos()
+  const [ searchQuery, setSearchQuery ] = useState('')
+  const { productos, setProductos, findProductos } = useProductos()
+  const [ resultNotFound, setResultNotFound ] = useState(false)
   const navigation = useNavigation()
 
-  // const findProductos = async () => {
-  //   const result = await AsyncStorage.getItem('productos')
-  //   console.log(result);
-  //   if ( result !== null ) setProductos(JSON.parse(result))
-  // }
-
-  const handleOnSubmit = async ( familia, nombre, neto, piezas ) => {
+  const handleOnSubmit = async ( categoria, familia, nombre, neto, piezas ) => {
 
     const producto = { 
       id: Date.now(),
+      categoria,
       familia,
       nombre,
       neto,
@@ -52,19 +60,58 @@ const InventarioFisicoPage = () => {
   //   // AsyncStorage.clear()
   // }, [])
 
+  const reverseProducts = reverseData(productos)
+
+  const handleOnSearchInput = async (text) => {
+    setSearchQuery(text)
+    if ( !text.trim()) {
+      setSearchQuery('')
+      setResultNotFound(false)
+      return await findProductos()
+    }
+    const filteredProductos = productos.filter(producto => {
+      if ( producto.familia.toLowerCase().includes(text.toLowerCase())) {
+        return producto
+      }
+    })
+
+    if ( filteredProductos.length ) {
+      setProductos([ ...filteredProductos ])
+    }else {
+      setResultNotFound(true)
+    }
+  }
+
+  const handleOnClear = async () => {
+    setSearchQuery('')
+    setResultNotFound(false)
+    await findProductos()
+  }
+
   return (
     <TouchableWithoutFeedback onPress={ Keyboard.dismiss } >
       <View style={ styles.container }>
-        <SearchBar nameScreen={ nameScreen } onPress={ () => setModalVisible(true) } />
         
+        <SearchBar 
+          nameScreen={ nameScreen } 
+          onPress={ () => setModalVisible(true) } 
+          value={ searchQuery }
+          onChangeText={ handleOnSearchInput }
+          onClear={ handleOnClear }
+        />
+
         {/* Lista de los productos registrados */}
-        <View style={ styles.productosContainer }>
-          <FlatList
-            data={ productos }
-            keyExtractor={ item => item.id.toString() }
-            renderItem={ ({ item }) => <Producto onPress={ () => openProducto(item) } item={ item } /> }
-          />
-        </View>
+        { resultNotFound ? <NotFound /> : 
+          <View style={ styles.productosContainer }>
+            <FlatList
+              data={ reverseProducts }
+              keyExtractor={ item => item.id.toString() }
+              renderItem={ ({ item }) => <Producto onPress={ () => openProducto(item) } item={ item } /> }
+            />
+          </View>
+        }
+        
+        
         
         <InputModal
           visible={ modalVisible }
@@ -84,7 +131,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     marginHorizontal: "auto",
-    marginTop: 30,
     // flexDirection: "row",
     alignItems: "center",
     zIndex: 1
