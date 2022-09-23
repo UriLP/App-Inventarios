@@ -6,6 +6,7 @@ import RoundIconBtn from './RoundIconBtn'
 
 const InputModal = ({ visible, onClose, onSubmit, producto, isEdit }) => {
 
+  const [ categoria, setCategoria ] = useState('')
   const [ familia, setFamilia ] = useState('')
   const [ nombre, setNombre ] = useState('')
   const [ neto, setNeto ] = useState('')
@@ -17,6 +18,7 @@ const InputModal = ({ visible, onClose, onSubmit, producto, isEdit }) => {
 
   useEffect(() => {
     if ( isEdit ) {
+      setCategoria(producto.categoria)
       setFamilia(producto.familia)
       setNombre(producto.nombre)
       setNeto(producto.neto)
@@ -24,19 +26,21 @@ const InputModal = ({ visible, onClose, onSubmit, producto, isEdit }) => {
   }, [ isEdit ])
 
   const handleOnChangeText = ( text, valueFor ) => {
+    if ( valueFor === 'Categoria' ) setCategoria(text)
     if ( valueFor === 'Familia' ) setFamilia(text)
     if ( valueFor === 'Nombre' ) setNombre(text)
     if ( valueFor === 'Neto' ) setNeto(text)
   }
 
   const handleSubmit = () => {
-    if ( !familia.trim() && !nombre.trim() && !neto.trim() ) return onClose()
+    if ( !categoria.trim() && !familia.trim() && !nombre.trim() && !neto.trim() ) return onClose()
 
     if ( isEdit ) {
-      onSubmit( familia, nombre, neto, Date.now() )
+      onSubmit( categoria, familia, nombre, neto, Date.now() )
       
     }else {
-      onSubmit( familia, nombre, neto )
+      onSubmit( categoria, familia, nombre, neto )
+      setCategoria('')
       setFamilia('')
       setNombre('')
       setNeto('')
@@ -46,6 +50,7 @@ const InputModal = ({ visible, onClose, onSubmit, producto, isEdit }) => {
 
   const closeModal = () => {
     if ( !isEdit ) {
+      setCategoria('')
       setFamilia('')
       setNombre('')
       setNeto('') 
@@ -63,6 +68,16 @@ const InputModal = ({ visible, onClose, onSubmit, producto, isEdit }) => {
         <View style={ styles.container }>
 
           <View style={[ styles.containerInput, { marginTop: 50 } ]} >
+            <Text style={ styles.nombreInput } >Categoría</Text>
+            <Input 
+              value={ categoria }
+              onChangeText={ (text) => handleOnChangeText( text, 'Categoria') }
+            >
+              <Text>Bebidas, Botanas...</Text>
+            </Input>
+          </View>
+          
+          <View style={ styles.containerInput } >
             <Text style={ styles.nombreInput } >Familia</Text>
             <Input 
               value={ familia }

@@ -79,7 +79,7 @@ function MyStack (user) {
           component={ InventarioFisico }
           options={ optionsHeader }
         />
-        {/* <HomeStackNavigator.Screen 
+        <HomeStackNavigator.Screen 
           name="Inventario en Sistema"
           component={ InventarioSistema }
           options={ optionsHeader }
@@ -98,7 +98,7 @@ function MyStack (user) {
           name="Nueva Caducidad"
           component={ NuevaCaducidadPage }
           options={ optionsHeader }
-        /> */}
+        />
         <HomeStackNavigator.Screen 
           name="Details"
           component={ DetailsScreen }

@@ -136,13 +136,14 @@ const DetailsScreen = (props) => {
     )
   }
 
-  const handleUpdate = async ( familia, nombre, neto, time ) => {
+  const handleUpdate = async ( categoria, familia, nombre, neto, time ) => {
     const result = await AsyncStorage.getItem('productos')
     let productos = []
     if ( result !== null ) productos = JSON.parse(result)
 
     const newProducto = productos.filter(n => {
       if ( n.id == producto.id ) {
+        n.categoria = categoria
         n.familia = familia
         n.nombre = nombre
         n.neto = neto
@@ -172,14 +173,17 @@ const DetailsScreen = (props) => {
 
   return (
     // <View style={{ paddingTop: headerHeight }}>
-    <View style={[ styles.container, { marginTop: 100 } ]}>
+    <View style={[ styles.container, { marginTop: 80 } ]}>
       <View>
-        <Text style={ styles.time }>
-          { producto.isUpdated 
-            ? `Modificado ${ formatDate(producto.time) }` 
-            : `Creado ${ formatDate(producto.time) }`
-          }
-        </Text>
+        <View style={ styles.headerContainer }>
+          <Text style={ styles.categoria }>{ producto.categoria }</Text>
+          <Text style={ styles.time }>
+            { producto.isUpdated
+              ? `Modificado ${ formatDate(producto.time) }`
+              : `Creado ${ formatDate(producto.time) }`
+            }
+          </Text>
+        </View>
         <Text style={ styles.nombreProducto }>{ producto.familia } { producto.nombre } { producto.neto }</Text>
       </View>
 
@@ -261,6 +265,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",
+    marginHorizontal: 10
   },
   contadoresContainer: {
     // display: 'flex',
@@ -313,10 +318,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'center'
   },
+  headerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 20
+  },
+  categoria: {
+    textAlign: 'left',
+    color: theme.colors.textColor,
+    fontSize: theme.fontSizes.smallSize
+  },
   time: {
     textAlign: 'right',
     color: theme.colors.textColor,
-    fontSize: 10
+    fontSize: theme.fontSizes.smallSize
   },
   btnContainer: {
     flexDirection: 'row',
