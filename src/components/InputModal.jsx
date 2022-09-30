@@ -10,6 +10,7 @@ const InputModal = ({ visible, onClose, onSubmit, producto, isEdit }) => {
   const [ familia, setFamilia ] = useState('')
   const [ nombre, setNombre ] = useState('')
   const [ neto, setNeto ] = useState('')
+  const [ piezas, setPiezas ] = useState(0)
 
   //Oculta el teclado cuando el usuario toca la pantalla en un spacio en blanco
   const handleModalClose = () => {
@@ -22,6 +23,7 @@ const InputModal = ({ visible, onClose, onSubmit, producto, isEdit }) => {
       setFamilia(producto.familia)
       setNombre(producto.nombre)
       setNeto(producto.neto)
+      setPiezas(producto.piezas)
     }
   }, [ isEdit ])
 
@@ -30,20 +32,22 @@ const InputModal = ({ visible, onClose, onSubmit, producto, isEdit }) => {
     if ( valueFor === 'Familia' ) setFamilia(text)
     if ( valueFor === 'Nombre' ) setNombre(text)
     if ( valueFor === 'Neto' ) setNeto(text)
+    if ( valueFor === 'Piezas' ) setPiezas(text)
   }
 
   const handleSubmit = () => {
-    if ( !categoria.trim() && !familia.trim() && !nombre.trim() && !neto.trim() ) return onClose()
+    if ( !categoria.trim() && !familia.trim() && !nombre.trim() && !neto.trim() && !piezas.trim() ) return onClose()
 
     if ( isEdit ) {
-      onSubmit( categoria, familia, nombre, neto, Date.now() )
+      onSubmit( categoria, familia, nombre, neto, piezas, Date.now() )
       
     }else {
-      onSubmit( categoria, familia, nombre, neto )
+      onSubmit( categoria, familia, nombre, neto, piezas )
       setCategoria('')
       setFamilia('')
       setNombre('')
       setNeto('')
+      setPiezas('')
     }
     onClose()
   }
@@ -54,6 +58,7 @@ const InputModal = ({ visible, onClose, onSubmit, producto, isEdit }) => {
       setFamilia('')
       setNombre('')
       setNeto('') 
+      setPiezas('')
     }
     onClose()
   }
@@ -107,6 +112,16 @@ const InputModal = ({ visible, onClose, onSubmit, producto, isEdit }) => {
             </Input>
           </View>
 
+          <View  style={ styles.containerInput } >
+            <Text style={ styles.nombreInput } >Piezas</Text>
+            <Input
+              value={ piezas }
+              onChangeText={ (text) => handleOnChangeText( text, 'Piezas') }
+            >
+              <Text>0...</Text>
+            </Input>
+          </View>
+
           <View style={ styles.buttonContainer }>
             <RoundIconBtn 
               antIconName='check' 
@@ -149,7 +164,8 @@ const styles = StyleSheet.create({
     // marginTop: 50
   },
   containerInput: {
-    marginVertical: 5
+    marginVertical: 5,
+    
   },
   nombreInput: {
     fontSize: theme.fontSizes.formSize,

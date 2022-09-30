@@ -36,6 +36,8 @@ const DetailsScreen = (props) => {
   const [ lastCount2, setLastCount2 ] = useState('')
   const [ lastCount3, setLastCount3 ] = useState('')
 
+  const [ newPieces, setNewPieces ] = useState('')
+
   const onPressPlus1 = () => {
     setCount1(count1 + 1)
 
@@ -44,6 +46,8 @@ const DetailsScreen = (props) => {
 
     AsyncStorage.setItem('count1', JSON.stringify(lastCount1))
     // console.log(lastCount1);
+    loadCounts()
+
   }
 
   const onPressMinus1 = () => {
@@ -54,6 +58,8 @@ const DetailsScreen = (props) => {
 
     AsyncStorage.setItem('count1', JSON.stringify(lastCount1))
     // console.log(lastCount1);
+    loadCounts()
+
   }
 
   const onPressPlus2 = () => {
@@ -63,6 +69,8 @@ const DetailsScreen = (props) => {
     setLastCount2(lastCount2)
 
     AsyncStorage.setItem('count2', JSON.stringify(lastCount2))
+    loadCounts()
+
   }
 
   const onPressMinus2 = () => {
@@ -72,6 +80,8 @@ const DetailsScreen = (props) => {
     setLastCount2(lastCount2)
 
     AsyncStorage.setItem('count2', JSON.stringify(lastCount2))
+    loadCounts()
+
   }
 
   const onPressPlus3 = () => {
@@ -81,6 +91,8 @@ const DetailsScreen = (props) => {
     setLastCount3(lastCount3)
 
     AsyncStorage.setItem('count3', JSON.stringify(lastCount3))
+    loadCounts()
+
   }
 
   const onPressMinus3 = () => {
@@ -90,28 +102,38 @@ const DetailsScreen = (props) => {
     setLastCount3(lastCount3)
 
     AsyncStorage.setItem('count3', JSON.stringify(lastCount3))
+    loadCounts()
+
   }
 
   const loadCounts = async () => {
     const result1 = await AsyncStorage.getItem('count1')
     const result2 = await AsyncStorage.getItem('count2')
     const result3 = await AsyncStorage.getItem('count3')
-    console.log(result1, result2, result3);
+    console.log('Valores: ', result1, result2, result3);
     if ( result1 !== null ) setCount1(JSON.parse(result1))
     if ( result2 !== null ) setCount2(JSON.parse(result2))
     if ( result3 !== null ) setCount3(JSON.parse(result3))
-  }
+    const suma = JSON.parse(result1) + JSON.parse(result2) + JSON.parse(result3)
+    console.log('Nueva suma: ', suma );
 
+    const newPieces = suma
+
+    setNewPieces(newPieces)
+    AsyncStorage.setItem('newPieces', JSON.stringify(suma))
+    
+  }
+  
   const deleteProducto = async () => {
     const result = await AsyncStorage.getItem('productos')
     let productos= []
     if( result !== null ) productos = JSON.parse(result)
 
-    const newProducto = productos.filter( n => n.id !== producto.id )
+    const newProductos = productos.filter( n => n.id !== producto.id )
 
-    setProductos(newProducto)
+    setProductos(newProductos)
 
-    await AsyncStorage.setItem('productos', JSON.stringify(newProducto))
+    await AsyncStorage.setItem('productos', JSON.stringify(newProductos))
 
     props.navigation.goBack()
   }
@@ -136,17 +158,18 @@ const DetailsScreen = (props) => {
     )
   }
 
-  const handleUpdate = async ( categoria, familia, nombre, neto, time ) => {
+  const handleUpdate = async ( categoria, familia, nombre, neto, piezas, time) => {
     const result = await AsyncStorage.getItem('productos')
     let productos = []
     if ( result !== null ) productos = JSON.parse(result)
 
-    const newProducto = productos.filter(n => {
-      if ( n.id == producto.id ) {
+    const newProductos = productos.filter(n => {
+      if ( n.id === producto.id ) {
         n.categoria = categoria
         n.familia = familia
         n.nombre = nombre
         n.neto = neto
+        n.piezas = piezas
         n.isUpdated = true
         n.time = time
 
@@ -155,8 +178,57 @@ const DetailsScreen = (props) => {
       return n
     })
 
-    setProductos(newProducto)
-    await AsyncStorage.setItem('productos', JSON.stringify(newProducto))
+    setProductos(newProductos)
+    await AsyncStorage.setItem('productos', JSON.stringify(newProductos))
+  }
+
+  const displayNewPiecesAlert = () => {
+    loadCounts()
+    Alert.alert(
+      '¿Estas seguro?', 
+      '¡Esta acción cambiara el número de piezas!',
+      [
+        {
+          text: 'Actualizar',
+          onPress: handleUpdatePieces()
+        },
+        {
+          text: 'No gracias',
+          onPress: () => console.log('No gracias')
+        },
+      ],
+      {
+        cancelable: true,
+      }
+    )
+  }
+
+  const  handleUpdatePieces = async ( ) => {
+    const result = await AsyncStorage.getItem('productos')
+    let productos = []
+    if ( result !== null ) productos = JSON.parse(result)
+
+    const nuevasPiezas = await AsyncStorage.getItem('newPieces')
+    console.log('Nos llevamos este', JSON.parse(nuevasPiezas))
+
+    const newValuePieces = JSON.parse(nuevasPiezas)
+    const newProductosPieces = productos.filter(n => {
+      if ( n.id === producto.id ) {
+        // n.categoria = categoria
+        // n.familia = familia
+        // n.nombre = nombre
+        // n.neto = neto
+        n.piezas = newValuePieces
+        // n.isUpdated = true
+        // n.time = time
+
+        setProducto(n)
+      }
+      return n
+    })
+
+    setProductos(newProductosPieces)
+    await AsyncStorage.setItem('productos', JSON.stringify(newProductosPieces))
   }
 
   const handleOnClose = () => setShowModal(false)
@@ -185,6 +257,7 @@ const DetailsScreen = (props) => {
           </Text>
         </View>
         <Text style={ styles.nombreProducto }>{ producto.familia } { producto.nombre } { producto.neto }</Text>
+        <Text style={ styles.nombreProducto }>Piezas: { producto.piezas }</Text>
       </View>
 
       <Text style={ styles.piezas } >Piezas</Text>
@@ -234,7 +307,6 @@ const DetailsScreen = (props) => {
         <TouchableOpacity>
           <RoundIconBtn
             antIconName='delete'
-            style={{ marginHorizontal: 15 }}
             onPress={ displayDeleteAlert }
           />
         </TouchableOpacity>
@@ -243,6 +315,14 @@ const DetailsScreen = (props) => {
           <RoundIconBtn
             antIconName='edit'
             onPress={ openEditModal }
+            style={{ marginHorizontal: 15 }}
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+          <RoundIconBtn
+            antIconName='save'
+            onPress={ handleUpdatePieces }
           />
         </TouchableOpacity>
       </View>
@@ -268,10 +348,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 10
   },
   contadoresContainer: {
-    // display: 'flex',
-    // justifyContent: "center",
-    // alignContent: "center",
-    // alignItems: "center",
     flexDirection: "row",
   },
   nombreProducto: {

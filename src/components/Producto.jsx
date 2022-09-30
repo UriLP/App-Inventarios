@@ -37,15 +37,6 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 5,
     marginBottom: 15,
-    // shadowColor: theme.colors.active,
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 2,
-    // },
-    // shadowOpacity: 0.5,
-    // shadowRadius: 3.84,
-
-    // elevation: 5,
   },
   headerContainer: {
     flexDirection: 'row',
