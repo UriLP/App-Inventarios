@@ -111,8 +111,6 @@ const InventarioFisicoPage = () => {
           </View>
         }
         
-        
-        
         <InputModal
           visible={ modalVisible }
           onClose={ () => setModalVisible(false) }
